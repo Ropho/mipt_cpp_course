@@ -13,8 +13,8 @@ class r_vector : public kernel {
         
     public:
 
-        void gen_color (void)      {color = sf::Color (rand () % _UI8_MAX, rand () % _UI8_MAX, 
-                                                       rand () % _UI8_MAX, _UI8_MAX);}
+        void gen_color (void)      {color = sf::Color (rand () % UCHAR_MAX, rand () % UCHAR_MAX, 
+                                                       rand () % UCHAR_MAX, UCHAR_MAX);}
         sf::Color get_color () const    {return color;}
         void set_color (sf::Color color_init) {color = color_init;}
 

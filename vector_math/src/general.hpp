@@ -6,6 +6,7 @@
 #include <math.h>
 #include <assert.h>
 #include <ctime>
+#include <limits.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 

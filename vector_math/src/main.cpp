@@ -15,16 +15,26 @@ typedef struct r_clock {
 
 int main (void) {
 
-/////////////////////////////////////////////////
-    axys_sys sys {};
 
-    r_vector vec_sec (POLAR, sys.circle_rad - 25, 0);
-    r_vector vec_min (POLAR, sys.circle_rad - 25, 0);
-    r_vector vec_hour(POLAR, sys.circle_rad / 2,  0);
+
+
+    axys_sys sys_mouse {};
+
+    r_vector vec_mouse {};
+
+
+    // r_vector vec (r_vector (POLAR, 0, 0));
+/////////////////////////////////////////////////
+    axys_sys sys_clock {};
+
+    r_vector vec_sec (POLAR, sys_clock.circle_rad - 25, 0);
+    r_vector vec_min (POLAR, sys_clock.circle_rad - 25, 0);
+    r_vector vec_hour(POLAR, sys_clock.circle_rad / 2,  0);
 
 
 /////////////////////////////////////////////////SFML
-    sf::RenderWindow window (sf::VideoMode (sys.WIDTH, sys.HEIGHT), "vector32.ru");
+    sf::RenderWindow window (sf::VideoMode (sys_clock.WIDTH, sys_clock.HEIGHT), "vector32.ru");
+
 
 
     while (window.isOpen ()) {
@@ -38,8 +48,8 @@ int main (void) {
 
 
             /////////////////////////////////////TRACE MOUSE
-            // if (event.type == sf::Event::MouseMoved)                
-                // vec1.set_coord (event.mouseMove.x - sys.WIDTH / 2, sys.HEIGHT / 2 - event.mouseMove.y);
+            if (event.type == sf::Event::MouseMoved)                
+                vec_mouse.set_coord (event.mouseMove.x - sys_mouse.WIDTH / 2, sys_mouse.HEIGHT / 2 - event.mouseMove.y);
         }
 
         time_t curr = time (NULL) % (3600 * 24);
@@ -51,7 +61,6 @@ int main (void) {
 
 /////////////////////////////////////////////////SEC
         double phi_sec = -grad_into_rad (sec / 60.f * 360);
-
         vec_sec.set_phi (phi_sec + grad_into_rad (90));
         vec_sec.synch ();
 
@@ -69,11 +78,14 @@ int main (void) {
 /////////////////////////////////////////////////DRAW
         window.clear (sf::Color::Black);
 
-        sys.draw_clock (&window, sys.circle_rad);
+        sys_clock.draw_clock (&window, sys_clock.circle_rad);
 
-        sys.draw (&window, vec_sec,  point (0, 0));
-        sys.draw (&window, vec_min,  point (0, 0));
-        sys.draw (&window, vec_hour, point (0, 0));
+        sys_clock.draw (&window, vec_sec,  point (0, 0));
+        sys_clock.draw (&window, vec_min,  point (0, 0));
+        sys_clock.draw (&window, vec_hour, point (0, 0));
+
+
+        sys_mouse.draw (&window, vec_mouse, point (0, 0));
 
         window.display ();
     }
