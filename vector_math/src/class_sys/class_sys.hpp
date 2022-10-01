@@ -11,27 +11,38 @@ class axys_sys {
 
     public:
 
-        axys_sys () {}
+        axys_sys (const point &strt, const size_t &width, const size_t &height) :
+            WIDTH_ (width), HEIGHT_ (height), STRT_ (strt)
+            {}
+
+        axys_sys (const size_t &width, const size_t &height) :
+            WIDTH_ (width), HEIGHT_ (height), STRT_ {}
+            {}
+
        ~axys_sys () {delete (pixels);}
 
+        const point STRT_      = {};
+        const int WIDTH_       =  0;
+        const int HEIGHT_      =  0; 
 
-        const int WIDTH       = 1200;
-        const int HEIGHT      = 800; 
-        const int USIK_SCALE  = 5;
-        const int SCALE       = 100;
+        const int USIK_SCALE_  = 5;
+        const int SCALE_       = 100;
 
-        const double circle_rad = 300;
+        sf::Uint8* pixels = new sf::Uint8 [WIDTH_ * HEIGHT_ * 4];
 
-        sf::Uint8* pixels = new sf::Uint8 [WIDTH * HEIGHT * 4];
-
-        void draw_clock (sf::RenderWindow *window, const double& rad) const;
-        void draw_axys  (sf::RenderWindow *window) const ;
-        void draw       (sf::RenderWindow *window, const r_vector& vec, const point& strt) const ;
+        friend void draw_clock (const axys_sys &sys, sf::RenderWindow *window);
+        
+        void draw_axys  (sf::RenderWindow *window) const;
+        void draw_vec   (sf::RenderWindow *window, const r_vector& vec, const point& strt) const ;
         
         void draw_line (sf::RenderWindow *window, const r_vector& vec, const point& strt) const;
         
-        double change_x (double x, double strt_x) const {return WIDTH  / 2 + x + strt_x;}
-        double change_y (double y, double strt_y) const {return HEIGHT / 2 - y - strt_y;}
+        double change_x (double x, double strt_x) const {return WIDTH_  / 2 + x + strt_x;}
+        double change_y (double y, double strt_y) const {return HEIGHT_ / 2 - y - strt_y;}
+
+        double transfer_x (double x) const {return x - STRT_.get_x ()  - WIDTH_  / 2;}
+        double transfer_y (double y) const {return -y + STRT_.get_y () + HEIGHT_ / 2;}
+
 };
 
 

@@ -107,7 +107,7 @@ r_vector& r_vector::operator= (const r_vector& vec) {
 
     return *this;
 }
-
+// x=y=z=a=r=t;
 
 //NEED UPDATE FOR COMPARE FUNCTIONS
 /////////////////////////////////////////////////COMPARE

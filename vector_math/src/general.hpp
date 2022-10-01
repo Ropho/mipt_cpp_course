@@ -19,7 +19,7 @@ enum STATUS {
     POLAR = 2,
 };
 
-double rad_into_grad (const double& rad);
+double rad_into_grad (const double&  rad);
 double grad_into_rad (const double& grad);
 
 
